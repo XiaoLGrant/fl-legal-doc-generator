@@ -1,9 +1,26 @@
 const express = require('express');
 const app = express();
+// const bodyParser = require('body-parser')
+const MongoClient = require('mongodb').MongoClient
 const cors = require('cors');
 const PORT = 7000;
 
-const floridaCounties = {
+let db,
+    dbConnectionStr = process.env.DB_STRING,
+    dbName = 'legal-doc-templates'
+
+MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
+.then( client => {
+    console.log(`Connected to ${dbName} Database`)
+    db = client.db(dbName)
+})
+
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+let floridaCounties = {
     'broward': {
         'circuit': {
             'court': 'in the circuit court of the 17th judicial circuit in and for broward county'
@@ -112,33 +129,109 @@ const floridaCounties = {
 
 app.use(cors());
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
+app.get('/',(req, res)=>{
+    db.collection('fl-templates').toArray()
+    .then(data => {
+        res.render('index.ejs', { info: data })
+    })
+    .catch(error => console.error(error))
+})
 
-app.get('/summons/:county&:tier', (req, res) => {
-    const county = req.params.county.toLowerCase();
-    const tier = req.params.tier.toLowerCase(); //small claims
+app.listen(process.env.PORT || PORT, ()=>{
+    console.log(`Server running on port ${PORT}`)
+})
 
-    //res.json(floridaCounties['manatee'][tier])
 
-    if (floridaCounties[county]) {
-        if (tier === 'ca') {
-            res.json({'court': floridaCounties[county]['circuit']['court'], 'summons text': floridaCounties[county]['20 day']});
-        } else if (tier === 'cc') {
-            res.json({'court': floridaCounties[county]['county']['court'], 'summons text': floridaCounties[county]['20 day']});
-        } else if (tier === 'sc') {
-            res.json(floridaCounties[county]['small claims']);
-        } else {
-            res.json(floridaCounties[county])
-        }
+// MongoClient.connect(/*'...mogno db link'*/)
+//     .then(client => {
+//         console.log('Connected to database')
+//         const db = client.db(/*'database name'*/)
+//         const collectionName = db.collection(/*'collection name'*/)
+
+//         app.set('view engine', 'ejs') //i don't remember what this does
+
+//         app.use(bodyParser.urlencoded({ extended: true})) //i don't remember what this does
+//         app.use(express.static('public')) //i don't remember what this does
+//         app.use(bodyParser.json()) //i don't remember what this does
+
+
+
+//     app.get('/', (req, res) => { //will this work if it's not nested in the mongo db connection? probably not b/c of listen nested in here? 
+//         res.sendFile(__dirname + '/index.html');
+//     });
+
+//     app.get('/summons/:county&:tier', (req, res) => {
+//         const county = req.params.county.toLowerCase();
+//         const tier = req.params.tier.toLowerCase();
+
+//         //res.json(floridaCounties['manatee'][tier])
+
+//         if (floridaCounties[county]) {
+//             if (tier === 'ca') {
+//                 res.json({'court': floridaCounties[county]['circuit']['court'], 'summons text': floridaCounties[county]['20 day']});
+//             } else if (tier === 'cc') {
+//                 res.json({'court': floridaCounties[county]['county']['court'], 'summons text': floridaCounties[county]['20 day']});
+//             } else if (tier === 'sc') {
+//                 res.json(floridaCounties[county]['small claims']);
+//             } else {
+//                 res.json(floridaCounties[county])
+//             }
+            
+//         } else if (!floridaCounties[county]) {
+//             res.json(floridaCounties['unknown']);
+//         }
         
-    } else if (!floridaCounties[county]) {
-        res.json(floridaCounties['unknown']);
-    }
-    
-});
+//     });
 
-app.listen(process.env.PORT || PORT, () => {
-    console.log(`The server is currently running on port ${PORT}.`);
-});
+//     app.post('/summons/:county&:tier', (req, res) => {
+//         const county = req.params.county.toLowerCase();
+//         const tier = req.params.tier.toLowerCase();
+
+//         collectionName.insertOne(req.body)
+//             .then(res => {
+//                 res.redirect('/')
+//             })
+//             .catch(err => console.error(err))
+//     })
+
+//     app.put('/summons/:county&:tier', (req, res) => {
+//         const county = req.params.county.toLowerCase();
+//         const tier = req.params.tier.toLowerCase();
+
+//         collectionName.findOneAndUpdate(
+//             { county: `${county}`},
+//             {
+//                 $set: {
+//                     body: req.body.body //will need to figure out how to target nested json fields
+//                 }
+//             },
+//             {
+//                 upsert: true //idk what this is for
+//             }
+//         )
+//         .then(res => {
+//             res.json('Success')
+//         })
+
+//     })
+
+//     app.delete('/summons/:county&:tier', (req, res) => {
+//         const county = req.params.county.toLowerCase();
+//         const tier = req.params.tier.toLowerCase();
+
+//         collectionName.deleteOne(
+//             {/*figure out how to target nested json fields*/}
+//         ).then(result => {
+//             if (result.deletedCount === 0) {
+//                 return res.json('No document info to delete.')
+//             }
+//             res.json('Deleted document info.')
+//         })
+//         .catch(err => console.error(err))
+//     })
+
+//     app.listen(process.env.PORT || PORT, () => {
+//         console.log(`The server is currently running on port ${PORT}.`);
+//     });
+//     })
+//     .catch(error => console.error(error))
