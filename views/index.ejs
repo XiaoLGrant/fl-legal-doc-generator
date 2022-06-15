@@ -4,30 +4,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>FL Legal Docs Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '.mytextarea'
+        });
+    </script>
 </head>
 <body>
     <h1>FL Legal Docs Generator</h1>
-    <!-- <ul class="templates">
-    <% for(let i=0; i < info.length; i++) {%>
-        <li class="rapper">
-            <span><%= info[i].stageName %></span>
-            <span><%= info[i].birthName %></span>
-            <span><%= info[i].likes %></span>
-            <span class='fa fa-thumbs-up'></span>
-            <span class='fa fa-trash'></span>
-        </li>
-    <% } %>
-    </ul> -->
+    <div class="instructions">
+        <h2>Instructions</h2>
+        <p>Use https://fl-legal-docs-api.herokuapp.com/summons/countyName&tier to get summons templates.</p>
+        <p>Route parameters are:
+            <ul>
+                <li>County Name: replace countyName with the county's name</li>
+                <li>Filing Tier: replace tier with the filing tier-- sc for small claims, cc for county civil, ca for circuit</li>
+            </ul>
+            Example: https://fl-legal-docs-api.herokuapp.com/summons/alachua&sc
+        </p>
+    </div>
+    
+    <div>
+        <h2>Available Templates</h2>
+        <ul class="templates">
+        <% for(let i=0; i < info.length; i++) {%>
+            <li class="available-templates">
+                <span><%= info[i].countyName %></span>
+                <span><%= info[i].filingTier.tier %></span>
+                <span class='fa-solid fa-pen-to-square'></span>
+                <span class='fa fa-trash'></span>
+            </li>
+        <% } %>
+        </ul>
+    </div>
+
+
+    
+
+    <h2>Edit A Template</h2>
+    <form action="/updateTemplate?_method=PUT" method="POST">
+        <input type="text" placeholder="State Abbreviation" name="stateName">
+        <input type="text" placeholder="County" name="countyName">
+        <input type="text" placeholder="Filing tier: Small Claims, County Civil, or Circuit Civil" name="filingTier">
+        <textarea class="mytextarea" id="editTemplateArea" placeholder="Paste document text here." name="docText"></textarea>
+        <input type="submit">
+    </form>
 
     <h2>Add A Template:</h2>
 
     <form action="/addTemplate" method="POST">
         <input type="text" placeholder="State Abbreviation" name="stateName">
-        <input type="text" placeholder="Stage Name" name="stageName">
-        <input type="text" placeholder="Birth Name" name="birthName">
+        <input type="text" placeholder="County" name="countyName">
+        <input type="text" placeholder="Filing tier: Small Claims, County Civil, or Circuit Civil" name="filingTier">
+        <textarea class="mytextarea" id="addTemplateArea" placeholder="Paste document text here." name="docText"></textarea>
         <input type="submit">
     </form>
     
