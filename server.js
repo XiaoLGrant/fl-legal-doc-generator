@@ -8,6 +8,8 @@ const methodOverride = require('method-override')
 const PORT = 7000;
 require('dotenv').config()
 
+var ObjectId = require('mongodb').ObjectId
+
 let db,
     dbConnectionStr = process.env.DB_STRING,
     dbName = 'legal-doc-templates'
@@ -25,6 +27,21 @@ app.use(express.json({limit: '50mb'}))
 app.use(express.urlencoded({ limit: '50mb', extended: true }))
 app.use(methodOverride('_method'))
 app.use(cors());
+
+app.use( function( req, res, next ) {
+    // this middleware will call for each requested
+    // and we checked for the requested query properties
+    // if _method was existed
+    // then we know, clients need to call DELETE request instead
+    if ( req.query._method == 'PUT' ) {
+        // change the original METHOD
+        // into DELETE method
+        req.method = 'PUT';
+        // and set requested url to /user/12
+        req.url = req.path;
+    }       
+    next(); 
+});
 
 // let floridaCounties = {    
 //     'manatee': {
@@ -83,29 +100,30 @@ app.post('/addTemplate', (req, res) => {
 })
 
 /*Put request to update an existing template in MongoDB. Currently not working, will need to figure out how to handle method override.*/
-app.put('/editTemplate', (req, res) => { ///editTemplate?_method=PUT
+app.put('/updateTemplate/:id', (req, res) => {
     db.collection('fl-templates').updateOne({
-        stateName: req.body.stateName,
-        countyName: req.body.countyName,
-        tier: req.body.filingTier
+        _id: new ObjectId(`${req.params.id}`)
         }, {
             $set: {
-                docText: tinymce.get('editTemplateArea').getContent()
+                stateName: req.body.stateName,
+                countyName: req.body.countyName,
+                tier: req.body.filingTier,
+                docText: req.body.docText
             }
         }, {
             sort: {_id: 1},
-            upsert: true
+            upsert: false
         })
     .then(result => {
         console.log('Template updated');
-        res.json('Template updated');
+        res.redirect('/');
     })
     .catch(err => console.error(err))
 })
 
 /*Delete request to delete a template from MongoDB*/
-app.delete('/deleteTemplate', (req, res) => {
-    db.collection('fl-templates').deleteOne({countyName: req.body.countyName})
+app.delete('/deleteTemplate/:id', (req, res) => {
+    db.collection('fl-templates').deleteOne({_id: new ObjectId(`${req.params.id}`)})
     .then (result => {
         console.log('Template deleted')
         res.json('Template deleted')

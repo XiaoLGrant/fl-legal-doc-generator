@@ -11,14 +11,14 @@
     <script>
         tinymce.init({
             selector: '#editTemplateArea',
-            plugins:'autosave fullscreen pagebreak searchreplace table print',
+            plugins:'fullscreen pagebreak searchreplace table print',
             height: '50vh',
             toolbar_sticky: true,
             autosave_restore_when_empty:true
         });
         tinymce.init({
             selector: '#addTemplateArea',
-            plugins:'autosave fullscreen pagebreak searchreplace table print',
+            plugins:'fullscreen pagebreak searchreplace table print',
             height: '50vh',
             toolbar_sticky: true,
             autosave_restore_when_empty:true
@@ -52,6 +52,7 @@
                 <% } else if (info[i].tier === 'ca') { %>
                     <span>Circuit Civil</span>
                 <% } %>
+                <span id="mongoId" class="hidden"><%= info[i]._id %></span>
                 <span class='fa-solid fa-pen-to-square'></span>
                 <span class='fa fa-trash'></span>
             </li>
@@ -60,10 +61,12 @@
     </div>
 
 
-    <form action="/updateTemplate" method="POST" id="editTemplate"> <!--/updateTemplate?_method=PUT-->
+    <form action="" method="POST" id="editTemplate">
         <h2>Edit A Template</h2>
         <p>Use the form below to edit an existing summons template.</p>
-        <input type="hidden" name="_method" value="PUT"/>
+        <!-- <input type="hidden" name="_method" value="PUT"/> -->
+        <h3 id="currentlyEditing">Currently Editing:</h3>
+        <input type="hidden" value="" id="mongoIdEditForm" name="editFormMongoId">
         <p>
             <label for="editState"><span>State: </span></label>
             <input type="text" placeholder="State Abbreviation" name="stateName" maxLength="2" id="editState">
@@ -84,7 +87,8 @@
             <label for="editTemplateArea"><span>Document Text: </span></label>
             <textarea id="editTemplateArea" placeholder="Paste document text here." name="docText"></textarea>
         </p>
-        <button id="editTemplateButton">Edit Template</button>
+        <input type="submit">
+        <!-- <button id="editTemplateButton">Edit Template</button> -->
     </form>
 
     <form action="/addTemplate" method="POST">
