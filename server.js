@@ -3,6 +3,7 @@ const app = express();
 // const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const cors = require('cors');
+const ejs = require('ejs');
 const { request, response } = require('express');
 const methodOverride = require('method-override')
 const PORT = 7000;
