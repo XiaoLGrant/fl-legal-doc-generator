@@ -133,6 +133,6 @@ app.delete('/deleteTemplate/:id', (req, res) => {
 })
 
 /*Enables server to run on host's port or defined port if using localhost*/
-app.listen(process.env.PORT || PORT, ()=>{
+app.listen(process.env.PORT || 7000, ()=>{
     console.log(`Server running on port ${PORT}`)
 })
