@@ -72,6 +72,33 @@ app.get('/',(req, res)=>{
     .catch(error => console.error(error))
 })
 
+/*Get request to load the add template page. Lists currently available templates.*/
+app.get('/addTemplate.ejs', (req,res)=>{
+    db.collection('fl-templates').find().sort({countyName: 1}).toArray()
+    .then(data => {
+        res.render('addTemplate.ejs', { info: data })
+    })
+    .catch(error => console.error(error))
+})
+
+/*Get request to load the edit template page. Lists currently available templates.*/
+app.get('/editTemplate.ejs', (req,res)=>{
+    db.collection('fl-templates').find().sort({countyName: 1}).toArray()
+    .then(data => {
+        res.render('editTemplate.ejs', { info: data })
+    })
+    .catch(error => console.error(error))
+})
+
+/*Get request to load the edit template page. Lists currently available templates.*/
+app.get('/createDoc.ejs', (req,res)=>{
+    db.collection('fl-templates').find().sort({countyName: 1}).toArray()
+    .then(data => {
+        res.render('createDoc.ejs', { info: data })
+    })
+    .catch(error => console.error(error))
+})
+
 /*Get request to retrieve data stored in MongoDB*/
 app.get('/summons/:county&:tier', (req, res) => {
     const county = req.params.county.toLowerCase();
@@ -95,12 +122,12 @@ app.post('/addTemplate', (req, res) => {
     })
     .then(result => {
         console.log('Template added');
-        res.redirect('/')
+        res.redirect('/addTemplate.ejs')
     })
     .catch(err => console.error(err))
 })
 
-/*Put request to update an existing template in MongoDB. Currently not working, will need to figure out how to handle method override.*/
+/*Upodate an existing template in MongoDB.*/
 app.put('/updateTemplate/:id', (req, res) => {
     db.collection('fl-templates').updateOne({
         _id: new ObjectId(`${req.params.id}`)
@@ -117,12 +144,12 @@ app.put('/updateTemplate/:id', (req, res) => {
         })
     .then(result => {
         console.log('Template updated');
-        res.redirect('/');
+        res.redirect('/editTemplate.ejs');
     })
     .catch(err => console.error(err))
 })
 
-/*Delete request to delete a template from MongoDB*/
+/*Delete a template from MongoDB*/
 app.delete('/deleteTemplate/:id', (req, res) => {
     db.collection('fl-templates').deleteOne({_id: new ObjectId(`${req.params.id}`)})
     .then (result => {

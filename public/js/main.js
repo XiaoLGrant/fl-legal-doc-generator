@@ -93,3 +93,26 @@ async function editTemplate() {
         console.log(err)
     }
 }
+
+//Display forms -- isn't working, changed to multiple pages instead
+// document.querySelector('#toggleAdd').addEventListener(click, 'displayAdd')
+// document.querySelector('#toggleEdit').addEventListener(click, 'displayEdit')
+// document.querySelector('#toggleCreate').addEventListener(click, 'displayCreate')
+
+// function displayAdd() {
+//     document.querySelector('#addTemplate').classList.toggle('hidden')
+//     document.querySelector('#editTemplate').classList.add('hidden')
+//     document.querySelector('#create-summons').classList.add('hidden')
+// }
+
+// function displayEdit() {
+//     document.querySelector('#addTemplate').classList.add('hidden')
+//     document.querySelector('#editTemplate').classList.toggle('hidden')
+//     document.querySelector('#create-summons').classList.add('hidden')
+// }
+
+// function displayCreate() {
+//     document.querySelector('#addTemplate').classList.add('hidden')
+//     document.querySelector('#editTemplate').classList.add('hidden')
+//     document.querySelector('#create-summons').classList.toggle('hidden')
+// }

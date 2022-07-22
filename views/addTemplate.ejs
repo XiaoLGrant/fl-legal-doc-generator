@@ -10,13 +10,6 @@
     <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: '#editTemplateArea',
-            plugins:'fullscreen pagebreak searchreplace table print',
-            height: '50vh',
-            toolbar_sticky: true,
-            autosave_restore_when_empty:true
-        });
-        tinymce.init({
             selector: '#addTemplateArea',
             plugins:'fullscreen pagebreak searchreplace table print',
             height: '50vh',
@@ -24,6 +17,9 @@
             autosave_restore_when_empty:true
         });
     </script>
+<!-- fields needed: plaintiff, defendant, title (e.g. alias/pluries/none), servee, servee address, case number.
+    fields maybe needed: customer name, customer address, customer phone number, job ref-->
+
 </head>
 <body>
     <nav>
@@ -34,19 +30,8 @@
             <li><a href="createDoc.ejs" id="toggleCreate">Create Summons</a></li>
         </ul>
     </nav>
-    <h1>FL Legal Docs Generator</h1>
-    <div id="api-instructions">
-        <h2>API Instructions</h2>
-        <p>Use https://legal-docs-generator.herokuapp.com/summons/countyName&tier to view a json file containing data for a summons template.</p>
-        <p>Route parameters are:
-            <ul>
-                <li>County Name: replace countyName with the county's name</li>
-                <li>Filing Tier: replace tier with the filing tier-- sc for small claims, cc for county civil, ca for circuit</li>
-            </ul>
-            Example: <a href="https://legal-docs-generator.herokuapp.com/summons/alachua&cc">https://legal-docs-generator.herokuapp.com/summons/alachua&cc</a>
-        </p>
-    </div>
-    
+    <h1>FL Legal Docs Generator: Add A Template</h1>
+     
     <div id="available-templates">
         <h2>Available FL Summons Templates</h2>
         <ul class="templates">
@@ -65,6 +50,32 @@
         <% } %>
         </ul>
     </div>
+
+    <form action="/addTemplate" method="POST" id="addTemplate">
+        <h2>Add A Template:</h2>
+        <p>Use the form below to add a new summons template. Fill out the state abbreviation, county name, filing tier, and document text.</p>
+        <p>
+            <label for="addState"><span>State: </span></label>
+            <input type="text" placeholder="State Abbreviation" name="stateName" maxLength="2" id="addState">
+        </p>
+        <p>
+            <label for="addCounty"><span>County: </span></label>
+            <input type="text" placeholder="County" name="countyName" id="addCounty">
+        </p>
+        <p>
+            <label for="addTier"><span>Filing Tier: </span></label>
+            <select name="filingTier" id="addTierSelect">
+                <option value="sc">Small Claims</option>
+                <option value="cc">County Civil</option>
+                <option value="ca">Circuit Civil</option>
+            </select>
+        </p>
+        <p>
+            <label for="addTemplateArea"><span>Document Text: </span></label>
+            <textarea id="addTemplateArea" placeholder="Paste document text here." name="docText"></textarea>
+        </p>
+        <input type="submit">
+    </form>
     
     <script src='js/main.js'></script>
     
