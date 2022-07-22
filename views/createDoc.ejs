@@ -8,15 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: '#createDocArea',
-            plugins:'fullscreen pagebreak searchreplace table print',
-            height: '50vh',
-            toolbar_sticky: true,
-            autosave_restore_when_empty:true
-        });
-    </script>
+    <script src='js/tinyMCECreate.js'></script>
 </head>
 <body>
     <nav>
@@ -28,7 +20,8 @@
         </ul>
     </nav>
     <h1>FL Legal Docs Generator: Create Document</h1>
-    
+    <!-- fields needed: plaintiff, defendant, title (e.g. alias/pluries/none), servee, servee address, case number.
+    fields maybe needed: customer name, customer address, customer phone number, job ref-->
     <div id="available-templates">
         <h2>Available FL Summons Templates</h2>
         <ul class="templates">
@@ -43,7 +36,7 @@
                     <span>Circuit Civil</span>
                 <% } %>
                 <span id="mongoId" class="hidden"><%= info[i]._id %></span>
-                <span class='fa-solid fa-pen-to-square'></span>
+                <span class='fa-solid fa-file-pen'></span>
             </li>
         <% } %>
         </ul>
@@ -51,7 +44,7 @@
 
     <div id="createDoc">
         <h2>Create A Summons:</h2>
-        <p>Click the <span class='fa-solid fa-pen-to-square'></span> icon for the county you would like to create a summons for. Fill out the fields below to create , then use the fields below to fill out an existing template.</p>
+        <p>Click the <span class='fa-solid fa-file-pen'></span> icon for the county you would like to create a summons for. Fill out the fields below to create , then use the fields below to fill out an existing template.</p>
         <p>State:</p>
         <p>County:</p>
         <p>Filing Tier:</p>

@@ -1,6 +1,7 @@
 /*Define variables for edit and delete icons*/
 const deleteText = document.querySelectorAll('.fa-trash')
 const editText = document.querySelectorAll('.fa-pen-to-square')
+const createDoc = document.querySelectorAll('.fa-file-pen')
 
 /*Add event listener to button that will submit the edit template form*/
 //document.querySelector('#editTemplateButton').addEventListener('click', editTemplate)
@@ -13,6 +14,10 @@ Array.from(deleteText).forEach((element) => {
 /*Add event listeners to all edit icons*/
 Array.from(editText).forEach((element) => {
     element.addEventListener('click', showTextForEditing)
+})
+
+Array.from(createDoc).forEach((element) => {
+    element.addEventListener('click', showTextForCreating)
 })
 
 /*Request template in MongoDB be deleted*/
@@ -57,6 +62,27 @@ async function showTextForEditing() {
         document.querySelector("#editCounty").value = data.countyName
         document.querySelector("#editTierSelect").value = data.tier
         tinymce.get('editTemplateArea').setContent(data.docText)
+    } catch(err) {
+        console.log(err)
+    }
+    
+}
+
+/*Request template data from MongoDB and populate it into the create template form*/
+async function showTextForCreating() {
+    const countyName = this.parentNode.childNodes[1].innerText.toLowerCase();
+    const filingTier = (this.parentNode.childNodes[3].innerText.toLowerCase() === 'small claims') ? 'sc' : (this.parentNode.childNodes[3].innerText.toLowerCase() === 'county civil') ? 'cc' : 'ca';
+
+    try {
+        const res = await fetch(`summons/${countyName}&${filingTier}`)
+        const data = await res.json()
+        //document.querySelector('#currentlyEditing').innerText = `Currently Editing: ${data.stateName} ${data.countyName} ${data.tier}`
+        //document.querySelector('#editTemplate').action = `/updateTemplate/${data._id}?_method=PUT`
+        // document.querySelector('#mongoIdEditForm').value = data._id
+        // document.querySelector('#editState').value = data.stateName
+        // document.querySelector("#editCounty").value = data.countyName
+        // document.querySelector("#editTierSelect").value = data.tier
+        tinymce.get('createDocArea').setContent(data.docText)
     } catch(err) {
         console.log(err)
     }
