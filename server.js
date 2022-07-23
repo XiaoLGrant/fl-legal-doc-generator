@@ -73,7 +73,7 @@ app.get('/',(req, res)=>{
 })
 
 /*Get request to load the add template page. Lists currently available templates.*/
-app.get('/addTemplate.ejs', (req,res)=>{
+app.get('/addTemplate', (req,res)=>{
     db.collection('fl-templates').find().sort({countyName: 1}).toArray()
     .then(data => {
         res.render('addTemplate.ejs', { info: data })
@@ -82,7 +82,7 @@ app.get('/addTemplate.ejs', (req,res)=>{
 })
 
 /*Get request to load the edit template page. Lists currently available templates.*/
-app.get('/editTemplate.ejs', (req,res)=>{
+app.get('/editTemplate', (req,res)=>{
     db.collection('fl-templates').find().sort({countyName: 1}).toArray()
     .then(data => {
         res.render('editTemplate.ejs', { info: data })
@@ -91,7 +91,7 @@ app.get('/editTemplate.ejs', (req,res)=>{
 })
 
 /*Get request to load the edit template page. Lists currently available templates.*/
-app.get('/createDoc.ejs', (req,res)=>{
+app.get('/createDoc', (req,res)=>{
     db.collection('fl-templates').find().sort({countyName: 1}).toArray()
     .then(data => {
         res.render('createDoc.ejs', { info: data })
@@ -122,7 +122,7 @@ app.post('/addTemplate', (req, res) => {
     })
     .then(result => {
         console.log('Template added');
-        res.redirect('/addTemplate.ejs')
+        res.redirect('/addTemplate')
     })
     .catch(err => console.error(err))
 })
@@ -144,7 +144,7 @@ app.put('/updateTemplate/:id', (req, res) => {
         })
     .then(result => {
         console.log('Template updated');
-        res.redirect('/editTemplate.ejs');
+        res.redirect('/editTemplate');
     })
     .catch(err => console.error(err))
 })

@@ -14,9 +14,9 @@
     <nav>
         <ul>
             <li><a href="/">API</a></li>
-            <li><a href="addTemplate.ejs" id="toggleAdd">Add Template</a></li>
-            <li><a href="editTemplate.ejs" id="toggleEdit">Edit Template</a></li>
-            <li><a href="createDoc.ejs" id="toggleCreate">Create Summons</a></li>
+            <li><a href="/addTemplate" id="toggleAdd">Add Template</a></li>
+            <li><a href="/editTemplate" id="toggleEdit">Edit Template</a></li>
+            <li><a href="/createDoc" id="toggleCreate">Create Summons</a></li>
         </ul>
     </nav>
     <h1>FL Legal Docs Generator: Create Document</h1>
@@ -44,13 +44,36 @@
 
     <div id="createDoc">
         <h2>Create A Summons:</h2>
-        <p>Click the <span class='fa-solid fa-file-pen'></span> icon for the county you would like to create a summons for. Fill out the fields below to create , then use the fields below to fill out an existing template.</p>
-        <p>State:</p>
-        <p>County:</p>
-        <p>Filing Tier:</p>
+        <p>Click the <span class='fa-solid fa-file-pen'></span> icon for the county you would like to create a summons for. Fill out the fields below, then select where in the template you would like to insert the case style information. Next, click the Insert Template button in the text editor and select which template you would like to use. Use File > Print to save the completed document.</p>
+        <p>Fill out the fields below, then select the Insert Template button in the text editor and choose which template you would like to use. Use File > Print to save the completed document.</p>
+        <p id="selectedTemplate">Selected Template:</p>
+        <p>
+            <fieldset>
+                <legend>Case and party information</legend>
+                <label for="summonsPrefix">Summons Prefix (Alias, 2nd Pluries, etc.): </label>
+                <input name="summonsPrefix" id="summonsPrefix">
+                <label for="caseNum">Case Number: </label>
+                <input name="caseNum" id="caseNum">
+                <label for="plaintiffName">Plaintiff Name: </label>
+                <input name="plaintiffName" id="plaintiffName">
+                <label for="defendantName">Defendant Name: </label>
+                <input name="defendantName" id="defendantName">
+                <label for="serveeName">Servee Name: </label>
+                <input name="serveeName" id="serveeName">
+                <label for="serveeStreet">Servee Street: </label>
+                <input name="serveeStreet" id="serveeStreet">
+                <label for="serveeCity">Servee City: </label>
+                <input name="serveeCity" id="serveeCity">
+                <label for="serveeState">Servee State: </label>
+                <input name="serveeState" id="serveeState" maxlength="2">
+                <label for="serveeZip">Servee City: </label>
+                <input name="serveeZip" id="serveeZip">
+
+            </fieldset></p>
         <p>Document Text:
             <textarea id="createDocArea" placeholder="Document text" name="docText"></textarea>
         </p>
+        <p><a href="/createDoc">Create New Template</a></p>
     </div>
     
     <script src='js/main.js'></script>

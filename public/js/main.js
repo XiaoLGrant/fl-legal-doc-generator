@@ -76,6 +76,7 @@ async function showTextForCreating() {
     try {
         const res = await fetch(`summons/${countyName}&${filingTier}`)
         const data = await res.json()
+        document.querySelector('#selectedTemplate').innerText = `Selected Template: ${data.stateName} ${data.countyName} ${data.tier}`
         //document.querySelector('#currentlyEditing').innerText = `Currently Editing: ${data.stateName} ${data.countyName} ${data.tier}`
         //document.querySelector('#editTemplate').action = `/updateTemplate/${data._id}?_method=PUT`
         // document.querySelector('#mongoIdEditForm').value = data._id
