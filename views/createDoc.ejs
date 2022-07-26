@@ -17,6 +17,7 @@
             <li><a href="/addTemplate" id="toggleAdd">Add Template</a></li>
             <li><a href="/editTemplate" id="toggleEdit">Edit Template</a></li>
             <li><a href="/createDoc" id="toggleCreate">Create Summons</a></li>
+            <li><a href="/createTXLet" id="toggleCreate">Create TX Letter</a></li>
         </ul>
     </nav>
     <h1>FL Legal Docs Generator: Create Document</h1>
@@ -40,6 +41,12 @@
             </li>
         <% } %>
         </ul>
+    </div>
+
+    <div>
+        <h2>PDF Lib Test</h2>
+        <p>Click the button to create a PDF document. Your browser will download the resulting file.</p>
+        <p id="pdfLibTestCreate">Create Summons</p>
     </div>
 
     <div id="createDoc">
@@ -76,6 +83,9 @@
         <p><a href="/createDoc">Create New Template</a></p>
     </div>
     
+    
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.js"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <script src='js/main.js'></script>
     
 </body>

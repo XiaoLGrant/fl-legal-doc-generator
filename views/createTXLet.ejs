@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FL Legal Docs Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src='js/txLetTinyMCE.js'></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">API</a></li>
+            <li><a href="/addTemplate" id="toggleAdd">Add Template</a></li>
+            <li><a href="/editTemplate" id="toggleEdit">Edit Template</a></li>
+            <li><a href="/createDoc" id="toggleCreate">Create FL Summons</a></li>
+            <li><a href="/createTXLet" id="toggleCreate">Create TX Letter</a></li>
+        </ul>
+    </nav>
+    <h1>Legal Docs Generator: Create TX Cover Letter</h1>
+    <div id="createTXLet">
+        <h2>Instructions:</h2>
+        <p>Fill out the fields below, then select the Insert Template button in the text editor and choose which template you would like to use. Print to save the completed document. Click Create New Template to start over or create a new document.</p>
+        <div class="inputPreview">
+            <div class="inputFields">
+                <p>
+                    <fieldset class="txCourtCaseInfo">
+                        <legend>Court & Case Information</legend>
+                        <fieldset class="txCourtInformation">
+                            <legend>Court Information</legend>
+                            <label for="txCounty">County: </label>
+                            <input name="txCounty" id="txCounty">
+                            <label for="txCourtStreet">Court Street: </label>
+                            <input name="txCourtStreet" id="txCourtStreet">
+                            <label for="txCourtCity">Court City: </label>
+                            <input name="txCourtCity" id="txCourtCity">
+                            <label for="txCourtZip">Court Zip Code: </label>
+                            <input name="txCourtZip" id="txCourtZip">
+                        </fieldset>
+                        <fieldset class="txCaseInformation">
+                            <legend>Case Information</legend>
+                            <label for="txCaseNum">Case Number: </label>
+                            <input name="txCaseNum" id="txCaseNum">
+                            <label for="txMatterNum">Matter Number: </label>
+                            <input name="txMatterNum" id="txMatterNum">
+                            <label for="plaintiffName">Plaintiff Name: </label>
+                            <input name="plaintiffName" id="txPlaintiffName">
+                            <label for="defendantName">Defendant Name: </label>
+                            <input name="defendantName" id="txDefendantName">
+                            <label for="serveeName">Servee Name: </label>
+                            <input name="serveeName" id="txServeeName">
+                            <label for="serveeStreet">Servee Street: </label>
+                            <input name="serveeStreet" id="txServeeStreet">
+                            <label for="serveeCity">Servee City: </label>
+                            <input name="serveeCity" id="txServeeCity">
+                            <label for="serveeState">Servee State: </label>
+                            <input name="serveeState" id="txServeeState" maxlength="2">
+                            <label for="serveeZip">Servee Zip Code: </label>
+                            <input name="serveeZip" id="txServeeZip">
+                        </fieldset>
+                        <fieldset class="txServiceDocReturn">
+                            <legend>Service Type & Doc Return Method</legend>
+                            <label for="serviceType">Service Type</label>
+                            <select name="serviceTypes" id="txServiceType">
+                                <option value="">Choose an option</option>
+                                <option value="private process server">Private Process Server</option>
+                                <option value="sheriff">Sheriff</option>
+                                <option value="constable">Constable</option>
+                            </select>
+        
+                            <label for="docReturnMethod">Doc Return Method</label>
+                            <select name="docReturnMethods" id="txDocReturnMethod">
+                                <option value="">Choose an option</option>
+                                <option value="Mail to ABC Legal at 700 Highlander Blvd #200, Arlington, TX 76015">Mail to ABC</option>
+                                <option value="Hold for pickup by local ABC courier">Hold for pickup</option>
+                                <option value="Email to ">Email to </option>
+                            </select>
+                            <label for="customerEmail">Customer Email</label>
+                            <select name="customerEmail" id="customerEmail">
+                                <option value="">Choose a customer</option>
+                                <option value="rsiehcourts@abclegal.com">Rausch</option>
+                            </select>
+                        </fieldset>
+                    </fieldset>
+                </p>
+            </div>
+            <div class="docPreview">
+                <p>Document Text:
+                    <textarea id="createTXLetArea" placeholder="Document text" name="docText"></textarea>
+                </p>
+            </div>
+        </div>
+        <p><a href="/createTXLet">Create New Template</a></p>
+    </div>
+    
+    
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.js"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src='js/main.js'></script>
+    
+</body>
+</html>

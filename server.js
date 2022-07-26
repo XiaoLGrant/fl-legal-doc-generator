@@ -2,9 +2,10 @@ const express = require('express');
 const app = express();
 // const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
+const { PDFDocument, StandardFonts, rgb } = require("pdf-lib");
+const fs = require('fs')
 const cors = require('cors');
 const ejs = require('ejs');
-const { request, response } = require('express');
 const methodOverride = require('method-override')
 const PORT = 7000;
 require('dotenv').config()
@@ -97,6 +98,15 @@ app.get('/createDoc', (req,res)=>{
         res.render('createDoc.ejs', { info: data })
     })
     .catch(error => console.error(error))
+})
+
+/*Get request to load create TX alias/amended pet page.*/
+app.get('/createTXLet', (req, res)=>{
+    db.collection('fl-templates').find().sort({countyName: 1}).toArray()
+    .then(data => {
+        res.render('createTXLet.ejs', {info: data});
+    })
+    .catch(error => console.log(error));
 })
 
 /*Get request to retrieve data stored in MongoDB*/

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/txLetter.css">
+</head>
+<body>
+    <div class="heading">
+        <div class="courtInfo">
+            <p>Clerk of the Court<br>
+            {$county} County, Texas<br>
+            {$court_street}<br>
+            {$court_city}, TX {$court_zip}</p>
+        </div>
+        <div class="abcContactInfo">
+            <img src="/public/abcLogo.png" alt="ABC Legal Services LLC">
+            <p>Address: 700 Highlander Blvd #200, Arlington, TX 76015<br>
+            Phone: 214-920-9688<br><br>
+            PARTNER<br>
+            ABC E-file Texas<br>
+            E-FILE ONLY, Dallas, TX 75220<br></p>
+            <h1><b>AMENDED PETITION - CIVIL CASE COUNTY COURT</b></h1>
+        </div>
+    </div>
+
+    <div class="letterBody">
+        <p>RE: {$plaintiff_name} vs. {$defendant_name}; TX County Court for {$county} County<br>
+            Case Number: {$case_num}<br><br>
+            Dear Sir or Madam:<br>
+            Enclosed please find the following documents:
+            <ul>
+                <li>Cover Letter</li>
+                <li>Amended Petition</li>
+            </ul>
+            Instructions:
+            <ul>
+                <li>Please file the Amended Petition.</li>
+                <li>Please issue a separate Citation for each defendant for service by a {$service_type}.<br>
+                    The citation(s) should be issued to:<br>
+                    {$servee_name}<br>
+                    {$servee_street}<br>
+                    {$servee_city}, {$servee_state} {$servee_zip}<br>
+                </li>
+                <li>Please return this coversheet, the original Citation, and a file-stamped copy of the Original Petition to ABC Legal by:<br>
+                    {$return_type}
+                </li>
+            </ul><br>
+            Thank you in advance for your assistance!<br>
+            <b>ABC Legal Services</b><br><br><br>
+            <p class="matterNumber">Matter number: {$matter_num}</p>
+        </p>
+    </div>
+</body>
+</html>
