@@ -33,6 +33,7 @@ tinymce.init({
 
     template_replace_values: {
         county: getCounty,
+        court: getCourt,
         court_address: getCourtAddress,
         plaintiff_name: getPlaintiffName,
         defendant_name: getDefendantName,
@@ -55,20 +56,25 @@ function preserveLineBreak(address) {
     return address.replace(/\r\n|\r|\n/g,"</br>")
 }
 
-function getCourtAddress() {
-    const testCourtAdd = getFormValue('#txCourtAddress')
-    return preserveLineBreak(testCourtAdd)
 
-}
 
 function getCounty() {
-    const txCounty = getFormValue('#txCounty').split(' ')
-    if (txCounty.length === 1) return txCounty[0][0].toUpperCase() + txCounty[0].slice(1).toLowerCase()
-    let properCaseTxCounty = []
-    for (let i = 0; i < txCounty.length; i++) {
-        properCaseTxCounty.push(txCounty[i][0].toUpperCase() + txCounty[i].slice(1).toLowerCase())
-    }
-    return properCaseTxCounty.join(' ')
+    const courtInfo = getFormValue('#txCourt').split('\n')
+    const court = courtInfo[0].split('for')
+    const county = court[1]
+    return county
+}
+
+function getCourt() {
+    const courtInfo = getFormValue('#txCourt').split('\n')
+    return preserveLineBreak(courtInfo[0])
+}
+
+function getCourtAddress() {
+    const courtInfo = getFormValue('#txCourt').split('\n')
+    const courtAddress = courtInfo.slice(1).join('\n')
+    return preserveLineBreak(courtAddress)
+
 }
 
 function getPlaintiffName() {
