@@ -1,8 +1,6 @@
-h1 {
-    color: green;
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
-
 .hidden {
     display: none;
 }
@@ -14,16 +12,56 @@ nav ul li {
 
 .inputFields {
     width: 20%;
-    border: 4px solid purple;
+    padding: 1em;
+}
+
+.inputFields label, .inputFields input, .inputFields textArea {
+    display: block;
+    width: 100%;
 }
 
 .inputPreview {
     display: flex;
-    border: 4px solid green;
 }
 
 .docPreview {
     width: 80%;
-    border: 4px solid red;
-    padding-left: 8%;
+    padding: 1em;
+}
+
+legend {
+    font-weight: bold;
+}
+
+.newTemplateButton {
+    padding: 0.5em;
+    border: 1px solid #24a0ed;
+    border-radius: 5px;
+    background: #24a0ed;
+}
+
+.newTemplateButton a {
+    color: white;
+    text-decoration: none;
+}
+
+.newTemplateButton:hover {
+    border: 1px solid #4DC6E2;
+    background: #4DC6E2;
+}
+
+.txServiceDocReturn {
+    margin-bottom: 1em;
+}
+
+@media screen and (max-width: 1050px) {
+    .inputFields {
+        width: 100%;
+    }
+}
+
+@media (min-width: 540px) and (max-width: 1050px) {
+    .inputFields {
+        width: 50%;
+    }
 }

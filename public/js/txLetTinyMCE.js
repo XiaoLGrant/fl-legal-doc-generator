@@ -1,12 +1,20 @@
 tinymce.init({
     selector: '#createTXLetArea',
     content_css: '/css/txLetter.css',
-    plugins:'fullscreen pagebreak searchreplace table print template',
-    toolbar: 'template print',
-    min_height: '90vh',
-    max_width: '70vw',
+    plugins:'fullscreen pagebreak searchreplace print template',
+    toolbar: 'template print pagebreak',
+    height: '75vh',
     toolbar_sticky: true,
     autosave_restore_when_empty: true,
+    // setup: (editor) => {
+    //     /*Baic button to use Alias Citation Template*/
+    //     editor.ui.registry.addButton('aliasCitation'), {
+    //         text: 'Alias Citation',
+    //         tooltip: 'Use alias citation cover letter template',
+    //         onAction: (_) => editor.insertContent(url("/templates/txAliasCitLetter.html"))
+    //     }
+    // },
+
     templates: [
         {
             title: "Alias Citation",
@@ -20,85 +28,87 @@ tinymce.init({
         }
     ],
 
+    template_cdate_classes: "created_date",
+    template_cdate_format: "%D",
+
     template_replace_values: {
         county: getCounty,
-        court_street: getCourtStreet,
-        court_city: getCourtCity,
-        court_zip: getCourtZip,
+        court_address: getCourtAddress,
         plaintiff_name: getPlaintiffName,
         defendant_name: getDefendantName,
         case_num: getCaseNumber,
-        servee_name: getServeeName,
-        servee_street: getServeeStreet,
-        servee_city: getServeeCity,
-        servee_state: getServeeState,
-        servee_zip: getServeeZip,
+        servee_name1: getServeeName1,
+        servee_address1: getServeeAddress1,
+        servee_name2: getServeeName2,
+        servee_address2: getServeeAddress2,
         service_type: getServiceType,
         return_type: getDocReturnMethod,
-        matter_num: getMatterNum
+        matter_num: getMatterNum        
     }
 });
 
+function getFormValue(selector) {
+    return document.querySelector(selector).value
+}
+
+function preserveLineBreak(address) {
+    return address.replace(/\r\n|\r|\n/g,"</br>")
+}
+
+function getCourtAddress() {
+    const testCourtAdd = getFormValue('#txCourtAddress')
+    return preserveLineBreak(testCourtAdd)
+
+}
+
 function getCounty() {
-    return document.querySelector('#txCounty').value
-}
-
-function getCourtStreet(){
-    return document.querySelector('#txCourtStreet').value
-}
-
-function getCourtCity(){
-    return document.querySelector('#txCourtCity').value
-}
-
-function getCourtZip(){
-    return document.querySelector('#txCourtZip').value
+    const txCounty = getFormValue('#txCounty').split(' ')
+    if (txCounty.length === 1) return txCounty[0][0].toUpperCase() + txCounty[0].slice(1).toLowerCase()
+    let properCaseTxCounty = []
+    for (let i = 0; i < txCounty.length; i++) {
+        properCaseTxCounty.push(txCounty[i][0].toUpperCase() + txCounty[i].slice(1).toLowerCase())
+    }
+    return properCaseTxCounty.join(' ')
 }
 
 function getPlaintiffName() {
-    return document.querySelector('#txPlaintiffName').value
+    return getFormValue('#txPlaintiffName').toUpperCase()
 }
 
 function getDefendantName() {
-    return document.querySelector('#txDefendantName').value
+    return getFormValue('#txDefendantName').toUpperCase()
 }
 
 function getCaseNumber() {
-    return document.querySelector('#txCaseNum').value
+    return getFormValue('#txCaseNum').toUpperCase()
 }
 
-function getServeeName() {
-    return document.querySelector('#txServeeName').value
+function getServeeName1() {
+    return getFormValue('#servee1Name').toUpperCase()
 }
 
-function getServeeStreet() {
-    return document.querySelector('#txServeeStreet').value
+function getServeeAddress1() {
+    const serveeAddress = getFormValue('#servee1Address').toUpperCase()
+    return preserveLineBreak(serveeAddress)
 }
 
-function getServeeCity() {
-    return document.querySelector('#txServeeCity').value
+function getServeeName2() {
+    return getFormValue('#servee2Name').toUpperCase()
 }
 
-function getServeeState() {
-    return document.querySelector('#txServeeState').value
-}
-
-function getServeeZip() {
-    return document.querySelector('#txServeeZip').value
-}
-
-function getServeeZip() {
-    return document.querySelector('#txServeeZip').value
+function getServeeAddress2() {
+    const serveeAddress = getFormValue('#servee2Address').toUpperCase()
+    return preserveLineBreak(serveeAddress)
 }
 
 function getServiceType() {
-    return document.querySelector('#txServiceType').value
+    return getFormValue('#txServiceType')
 }
 
 function getDocReturnMethod() {
-    return document.querySelector('#txDocReturnMethod').value === 'Email to ' ? `${document.querySelector('#txDocReturnMethod').value}${document.querySelector('#customerEmail').value}` : document.querySelector('#txDocReturnMethod').value
+    return getFormValue('#txDocReturnMethod') === 'Email to ' ? `${getFormValue('#txDocReturnMethod')}${getFormValue('#customerEmail')}` : getFormValue('#txDocReturnMethod')
 }
 
 function getMatterNum() {
-    return document.querySelector('#txMatterNum').value
+    return getFormValue('#txMatterNum')
 }

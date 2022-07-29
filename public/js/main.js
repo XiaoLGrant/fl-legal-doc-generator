@@ -146,6 +146,7 @@ async function editTemplate() {
 
 
 ///////////////////////////////*PDFLIB TEST*/
+/*
 document.querySelector('#pdfLibTestCreate').addEventListener('click', createPdf)
 const { PDFDocument, rgb, degrees, StandardFonts } = PDFLib;
 async function createPdf() {
@@ -170,9 +171,10 @@ async function createPdf() {
   }
 
   const summonsBody = 'This is a test for summonsssssssss'
-
+*/
 
   /*Require customer email for TX Letter*/
+  /*
   document.querySelector('#docReturnMethod').addEventListener('change', function() {
     if (document.querySelector('#docReturnMethod').selectedIndex === 3) {
         document.querySelector('#customerEmail').stlye.display = 'block';
@@ -180,3 +182,11 @@ async function createPdf() {
         document.querySelector('#customerEmail').stlye.display = 'none';
     }
   })
+*/
+
+/*Expand instructions on TX cover letter page*/
+document.querySelector('.fa-angle-down').addEventListener('click', showElement)
+function showElement() {
+    document.querySelector('.instructions').classList.toggle("hidden")
+}
+  
