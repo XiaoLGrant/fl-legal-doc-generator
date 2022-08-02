@@ -121,6 +121,12 @@ async function editTemplate() {
     }
 }
 
+/*Expand instructions on TX cover letter page*/
+document.querySelector('.fa-angle-down').addEventListener('click', showElement)
+function showElement() {
+    document.querySelector('.instructions').classList.toggle("hidden")
+}
+
 //Display forms -- isn't working, changed to multiple pages instead
 // document.querySelector('#toggleAdd').addEventListener(click, 'displayAdd')
 // document.querySelector('#toggleEdit').addEventListener(click, 'displayEdit')
@@ -146,15 +152,17 @@ async function editTemplate() {
 
 
 ///////////////////////////////*PDFLIB TEST*/
-/*
+
 document.querySelector('#pdfLibTestCreate').addEventListener('click', createPdf)
-const { PDFDocument, rgb, degrees, StandardFonts } = PDFLib;
+/*const { PDFDocument, rgb, degrees, StandardFonts } = PDFLib;
+
 async function createPdf() {
     const pdfDoc = await PDFDocument.create()
     const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
-  
+    const summonsBody = 'This is a test for summonsssssssss'
     const page = pdfDoc.addPage()
     const { width, height } = page.getSize()
+    page.setSize(841.89, 595.28)
     const fontSize = 30
     page.drawText(summonsBody, {
       x: 50,
@@ -164,29 +172,21 @@ async function createPdf() {
       color: rgb(0, 0.53, 0.71),
     })
   
-    fs.writeFileSync("./output.pdf", await page.save())
-
-    // const pdfBytes = await pdfDoc.save()
-    // download(pdfBytes, "pdf-lib_creation_example.pdf", "application/pdf");
+    //fs.writeFileSync("./output.pdf", await page.save())
+    
+    const pdfBytes = await pdfDoc.save()
+    fs.writeFile("output.pdf", pdfBytes, "utf8", (err, data) => {
+        if (err) console.log(err);
+        if (data) console.log(data);
+    })
+    //download(pdfBytes, "pdf-lib_creation_example.pdf", "application/pdf");
   }
-
-  const summonsBody = 'This is a test for summonsssssssss'
 */
-
-  /*Require customer email for TX Letter*/
-  /*
-  document.querySelector('#docReturnMethod').addEventListener('change', function() {
-    if (document.querySelector('#docReturnMethod').selectedIndex === 3) {
-        document.querySelector('#customerEmail').stlye.display = 'block';
-    } else {
-        document.querySelector('#customerEmail').stlye.display = 'none';
-    }
-  })
-*/
-
-/*Expand instructions on TX cover letter page*/
-document.querySelector('.fa-angle-down').addEventListener('click', showElement)
-function showElement() {
-    document.querySelector('.instructions').classList.toggle("hidden")
+async function createPdf() {
+    const pdfDoc = await PDFLib.PDFDocument.create();
+      const page = pdfDoc.addPage([350, 400]);
+      page.moveTo(110, 200);
+      page.drawText('Hello World!');
+      const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+      document.getElementById('pdf').src = pdfDataUri;
 }
-  

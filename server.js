@@ -122,6 +122,29 @@ app.get('/summons/:county&:tier', (req, res) => {
     .catch(error => console.error(error))    
 });
 
+/*Get request for testing pdflib*/
+app.get('/pdflib', (req, res) => {
+    db.collection('fl-templates').find().sort({countyName: 1}).toArray()
+    .then(data => {
+        res.render('testpdflib.ejs', {info: data});
+    })
+    .catch(error => console.log(error)); 
+});
+
+/*Get request for Customer emails*/
+/* need to add to legal docs database
+app.get('/customer/:customerName', (req, res) => {
+    const customerName = req.params.customerName.toLowerCase();
+
+    db.collection('abc-customers').find({customerName: customerName}).toArray()
+    .then(data => {
+        console.log(data)
+        res.json(data[0])
+    })
+    .catch(error => console.error(error))
+})
+*/
+
 /*Post request to add a new template to MongoDB*/
 app.post('/addTemplate', (req, res) => {
     db.collection('fl-templates').insertOne({

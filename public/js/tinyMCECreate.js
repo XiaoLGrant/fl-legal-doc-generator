@@ -3,7 +3,7 @@ const alachuacc = fetch("https://legal-docs-generator.herokuapp.com/summons/alac
 tinymce.init({
     selector: '#createDocArea',
     plugins:'fullscreen pagebreak searchreplace table print template',
-    toolbar: 'template',
+    toolbar: 'template print',
     min_height: '50vh',
     width: '85vw',
     toolbar_sticky: true,

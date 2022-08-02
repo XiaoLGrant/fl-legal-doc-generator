@@ -56,8 +56,6 @@ function preserveLineBreak(address) {
     return address.replace(/\r\n|\r|\n/g,"</br>")
 }
 
-
-
 function getCounty() {
     const courtInfo = getFormValue('#txCourt').split('\n')
     const court = courtInfo[0].split('for')
@@ -112,7 +110,13 @@ function getServiceType() {
 }
 
 function getDocReturnMethod() {
-    return getFormValue('#txDocReturnMethod') === 'Email to ' ? `${getFormValue('#txDocReturnMethod')}${getFormValue('#customerEmail')}` : getFormValue('#txDocReturnMethod')
+    if (getFormValue('#txServiceType') === 'sheriff' || getFormValue('#txServiceType') === 'constable') {
+        return `Dispatch all documents to the ${getFormValue('#txServiceType')} for service`
+    } else if (getFormValue('#txDocReturnMethod') === 'Email to ') {
+        return `${getFormValue('#txDocReturnMethod')}${getFormValue('#customerEmail')}`
+    } else {
+        return getFormValue('#txDocReturnMethod')
+    }
 }
 
 function getMatterNum() {

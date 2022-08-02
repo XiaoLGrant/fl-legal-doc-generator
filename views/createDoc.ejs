@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FL Legal Docs Generator</title>
+    <title>Legal Docs Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tiny.cloud/1/nf56djxmrt5h0sf7j8vkhscwakqvwdeyi7ftriugdec5tc05/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
@@ -20,7 +20,7 @@
             <li><a href="/createTXLet" id="toggleCreate">Create TX Letter</a></li>
         </ul>
     </nav>
-    <h1>FL Legal Docs Generator: Create Document</h1>
+    <h1>Legal Docs Generator: Create FL Summons</h1>
     <!-- fields needed: plaintiff, defendant, title (e.g. alias/pluries/none), servee, servee address, case number.
     fields maybe needed: customer name, customer address, customer phone number, job ref-->
     <div id="available-templates">
@@ -46,11 +46,12 @@
     <div>
         <h2>PDF Lib Test</h2>
         <p>Click the button to create a PDF document. Your browser will download the resulting file.</p>
+        <iframe id="pdftest" style="width: 100%; height: 100%;"></iframe>
         <p id="pdfLibTestCreate">Create Summons</p>
     </div>
 
     <div id="createDoc">
-        <h2>Create A Summons:</h2>
+        <h2>Create A Summons: <i class="fa-solid fa-angle-down"></i></h2>
         <p>Click the <span class='fa-solid fa-file-pen'></span> icon for the county you would like to create a summons for. Fill out the fields below, then select where in the template you would like to insert the case style information. Next, click the Insert Template button in the text editor and select which template you would like to use. Use File > Print to save the completed document.</p>
         <p>Fill out the fields below, then select the Insert Template button in the text editor and choose which template you would like to use. Use File > Print to save the completed document.</p>
         <p id="selectedTemplate">Selected Template:</p>
@@ -76,7 +77,8 @@
                 <label for="serveeZip">Servee City: </label>
                 <input name="serveeZip" id="serveeZip">
 
-            </fieldset></p>
+            </fieldset>
+        </p>
         <p>Document Text:
             <textarea id="createDocArea" placeholder="Document text" name="docText"></textarea>
         </p>
@@ -84,8 +86,8 @@
     </div>
     
     
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.js"></script>
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <!-- <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.js"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script> -->
     <script src='js/main.js'></script>
     
 </body>
