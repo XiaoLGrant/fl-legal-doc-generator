@@ -1,6 +1,6 @@
 const { PDFDocument, StandardFonts, rgb } = PDFLib
 
-document.querySelector('#create').addEventListener('click', createForm)
+document.querySelector('#create').addEventListener('click', fillForm)
 
 async function createForm() {
   // Create a new PDFDocument
@@ -93,6 +93,28 @@ async function createForm() {
 
   // Trigger the browser to download the PDF document
   //download(pdfBytes, "pdf-lib_form_creation_example.pdf", "application/pdf");
+
+  const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+  document.getElementById('pdftestpreview').src = pdfDataUri;
+}
+
+async function fillForm() {
+  const formUrl = '/templates/brevard sc test.pdf'
+  const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
+
+  const pdfDoc = await PDFDocument.load(formPdfBytes)
+
+  const form = pdfDoc.getForm()
+
+  const plaintiffField = form.getTextField('plaintiffName')
+  const defendantField = form.getTextField('defendantName')
+  const caseNumField = form.getTextField('caseNumber')
+  const serveeAddField = form.getTextField('serveeAddress')
+
+  plaintiffField.setText(getPlaintiff())
+  defendantField.setText(getDefendant())
+  serveeAddField.setText(getServeeAddress())
+  caseNumField.setText(getCaseNum())
 
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   document.getElementById('pdftestpreview').src = pdfDataUri;
