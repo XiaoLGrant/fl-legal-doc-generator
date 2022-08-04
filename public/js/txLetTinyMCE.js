@@ -72,7 +72,6 @@ function getCourtAddress() {
     const courtInfo = getFormValue('#txCourt').split('\n')
     const courtAddress = courtInfo.slice(1).join('\n')
     return preserveLineBreak(courtAddress)
-
 }
 
 function getPlaintiffName() {

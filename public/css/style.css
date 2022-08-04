@@ -54,11 +54,11 @@ legend {
     margin-bottom: 1em;
 }
 
-#txCourt {
+#txCourt, #courtInfoTest {
     min-height: 6em;
 }
 
-#servee1Address, #servee2Address {
+#servee1Address, #servee2Address, #serveeAddressTest, #servee2AddressTest {
     min-height: 4em;
 }
 
@@ -72,4 +72,9 @@ legend {
     .inputFields {
         width: 50%;
     }
+}
+
+iframe {
+    height: 85vh;
+    width: 100%;
 }

@@ -1,36 +1,113 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <script src="https://unpkg.com/pdf-lib@1.17.1"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+    <link rel="stylesheet" href="css/style.css">
   </head>
 
   <body>
-    <p>Click the button to create a PDF document with form fields using <code>pdf-lib</code></p>
+    <p>Instructions</p>
 
-    <fieldset>
-      <legend>Case and party information</legend>
-      <label for="summonsPrefixTest">Summons Prefix (Alias, 2nd Pluries, etc.): </label>
-      <input name="summonsPrefixTest" id="summonsPrefixTest">
+    <div class="inputPreview" id="inputPreview2">
+      <div class="inputFields">
+        <fieldset class="txCourtCaseInfo">
+          <legend>Case Information</legend>
+          <fieldset>
+            <legend>Court Information</legend>
+            <label for="courtInfoTest">Court Info: </label>
+            <textarea name="courtInfoTest" id="courtInfoTest"></textarea>
+          </fieldset>
+
+          <fieldset>
+            <legend>Case Information</legend>
+            <label for="matterNumberTest">Matter Number: </label>
+            <input name="matterNumberTest" id="matterNumberTest">
+            
+            <label for="caseNumTest">Case Number: </label>
+            <input name="caseNumTest" id="caseNumTest">
+          </fieldset>
+
+          <fieldset>
+            <legend>Party Information</legend>
+            <label for="plaintiffNameTest">Plaintiff Name: </label>
+            <input name="plaintiffNameTest" id="plaintiffNameTest">
+            
+            <label for="defendantNameTest">Defendant Name: </label>
+            <input name="defendantNameTest" id="defendantNameTest">
+            
+            <label for="serveeNameTest">Servee 1 Name: </label>
+            <input name="serveeNameTest" id="serveeNameTest">
+            
+            <label for="serveeAddressTest">Servee 1 Address: </label>
+            <textarea name="serveeAddressTest" id="serveeAddressTest"></textarea>
       
-      <label for="caseNumTest">Case Number: </label>
-      <input name="caseNumTest" id="caseNumTest">
+            <label for="servee2NameTest">Servee 2 Name: </label>
+            <input name="servee2NameTest" id="servee2NameTest">
+            
+            <label for="servee2AddressTest">Servee 2 Address: </label>
+            <textarea name="servee2AddressTest" id="servee2AddressTest"></textarea>
+          </fieldset>
+
+        </fieldset>
+
+        <fieldset class="templateInfo">
+          <legend>Template Information</legend>
+          <fieldset class="txServiceDocReturn">
+            <legend>Service Type & Doc Return Method</legend>
+            <label for="txServiceTypeTest">Service Type</label>
+            <select name="txServiceTypeTest" id="txServiceTypeTest">
+                <option value="">Choose an option</option>
+                <option value="private process server">Private Process Server</option>
+                <option value="sheriff">Sheriff</option>
+                <option value="constable">Constable</option>
+            </select>
+    
+            <label for="txDocReturnMethodTest">Doc Return Method</label>
+            <select name="txDocReturnMethodTest" id="txDocReturnMethodTest">
+                <option value="">Choose an option</option>
+                <option value="Mail to ABC Legal at 700 Highlander Blvd #200, Arlington, TX 76015">Mail to ABC</option>
+                <option value="Hold for pickup by local ABC courier">Hold for pickup</option>
+                <option value="Email to ">Email to </option>
+            </select>
+           
+            <label for="customerEmailTest">Customer Email</label>
+            <select name="customerEmailTest" id="customerEmailTest">
+                <option value="">Choose a customer</option>
+                <option value="couchcourts@abclegal.com">Couch Lambert</option>
+                <option value="hostocourt@abclegal.com">Hosto & Buchan</option>
+                <option value="javitchcourts@abclegal.com">Javitch</option>
+                <option value="Jenkins&YoungTX@abclegal.com">Jenkins & Young</option>
+                <option value="JohnsonMarkTX@abclegal.com">Johnson Mark</option>
+                <option value="MichaelJAdamsTX@abclegal.com">Michael J. Adams</option>
+                <option value="MidlandTX@abclegal.com">Midland Funding LLC</option>
+                <option value="MorganAssociatesTX@abclegal.com">Morgan & Associates</option>
+                <option value="NoackTX@abclegal.com">Noack Law Firm</option>
+                <option value="oportuncourts@abclegal.com">Oportun</option>
+                <option value="PersolveTX@abclegal.com">Persolve Legal</option>
+                <option value="LitigationFilingTX@abclegal.com">PRA</option>
+                <option value="RSIEHcourts@abclegal.com">Rausch</option>
+                <option value="mjscourts@abclegal.com">Scott & Associates</option>
+                <option value="SuttellandHammerTX@abclegal.com">Suttell & Hammer</option>
+                <option value="vinlawcourts@abclegal.com">Waddell Serafino</option>                                
+                <option value="Zwicker_TX@abclegal.com">Zwicker</option>
+            </select>
+          </fieldset>
+
+          <label for="txTemplate">Template</label>
+          <select name="txTemplate" id="txTemplate">
+              <option value="">Choose an option</option>
+              <option value="alias citation">Alias Citation</option>
+              <option value="amended petition">Amended Petition</option>
+          </select>
+
+        </fieldset>
+        <button id="create">Create PDF</button>
+        <span class="newTemplateButton"><a href="/pdflib">Reset</a></span>
+      </div>
       
-      <label for="plaintiffNameTest">Plaintiff Name: </label>
-      <input name="plaintiffNameTest" id="plaintiffNameTest">
-      
-      <label for="defendantNameTest">Defendant Name: </label>
-      <input name="defendantNameTest" id="defendantNameTest">
-      
-      <label for="serveeNameTest">Servee Name: </label>
-      <input name="serveeNameTest" id="serveeNameTest">
-      
-      <label for="serveeAddressTest">Servee Address: </label>
-      <textarea name="serveeAddressTest" id="serveeAddressTest"></textarea>
-  </fieldset>
-  <iframe id="pdftestpreview" style="width: 100%; height: 80%" src=""></iframe>
-    <button id="create">Create PDF</button>
+    <iframe id="pdftestpreview" src=""></iframe>
+    </div>
   </body>
-
   <script src="js/pdfLibTest.js"></script>
 </html>

@@ -1,4 +1,4 @@
-# [FL Legal Documents App](https://fl-legal-docs-api.herokuapp.com/)
+# [FL Legal Documents App](https://legal-docs-generator.herokuapp.com/)
 This app stores templates for a variety of legal documents. Templates can be added, updated, and deleted. The site linked here currently only contains data for FL summonses.
 
 API requests can currently be made using https://fl-legal-docs-api.herokuapp.com/summons/countyName&tier to get summons text in json format. The values for tier are sc, cc, and ca. Example: https://fl-legal-docs-api.herokuapp.com/summons/manatee&sc
