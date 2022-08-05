@@ -20,6 +20,9 @@ Array.from(createDoc).forEach((element) => {
     element.addEventListener('click', showTextForCreating)
 })
 
+/*Add event listener to select customer for editing*/
+//document.querySelector('#selectCustomerToEdit').addEventListener('click', editCustomer)
+
 /*Request template in MongoDB be deleted*/
 async function deleteTemplate() {
     const countyName = this.parentNode.childNodes[1].innerText
@@ -121,72 +124,12 @@ async function editTemplate() {
     }
 }
 
+// async function editCustomer() {
+//     const templateId = this.
+// }
+
 /*Expand instructions on TX cover letter page*/
 document.querySelector('.fa-angle-down').addEventListener('click', showElement)
 function showElement() {
     document.querySelector('.instructions').classList.toggle("hidden")
-}
-
-//Display forms -- isn't working, changed to multiple pages instead
-// document.querySelector('#toggleAdd').addEventListener(click, 'displayAdd')
-// document.querySelector('#toggleEdit').addEventListener(click, 'displayEdit')
-// document.querySelector('#toggleCreate').addEventListener(click, 'displayCreate')
-
-// function displayAdd() {
-//     document.querySelector('#addTemplate').classList.toggle('hidden')
-//     document.querySelector('#editTemplate').classList.add('hidden')
-//     document.querySelector('#create-summons').classList.add('hidden')
-// }
-
-// function displayEdit() {
-//     document.querySelector('#addTemplate').classList.add('hidden')
-//     document.querySelector('#editTemplate').classList.toggle('hidden')
-//     document.querySelector('#create-summons').classList.add('hidden')
-// }
-
-// function displayCreate() {
-//     document.querySelector('#addTemplate').classList.add('hidden')
-//     document.querySelector('#editTemplate').classList.add('hidden')
-//     document.querySelector('#create-summons').classList.toggle('hidden')
-// }
-
-
-///////////////////////////////*PDFLIB TEST*/
-
-document.querySelector('#pdfLibTestCreate').addEventListener('click', createPdf)
-/*const { PDFDocument, rgb, degrees, StandardFonts } = PDFLib;
-
-async function createPdf() {
-    const pdfDoc = await PDFDocument.create()
-    const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
-    const summonsBody = 'This is a test for summonsssssssss'
-    const page = pdfDoc.addPage()
-    const { width, height } = page.getSize()
-    page.setSize(841.89, 595.28)
-    const fontSize = 30
-    page.drawText(summonsBody, {
-      x: 50,
-      y: height - 4 * fontSize,
-      size: fontSize,
-      font: timesRomanFont,
-      color: rgb(0, 0.53, 0.71),
-    })
-  
-    //fs.writeFileSync("./output.pdf", await page.save())
-    
-    const pdfBytes = await pdfDoc.save()
-    fs.writeFile("output.pdf", pdfBytes, "utf8", (err, data) => {
-        if (err) console.log(err);
-        if (data) console.log(data);
-    })
-    //download(pdfBytes, "pdf-lib_creation_example.pdf", "application/pdf");
-  }
-*/
-async function createPdf() {
-    const pdfDoc = await PDFLib.PDFDocument.create();
-      const page = pdfDoc.addPage([350, 400]);
-      page.moveTo(110, 200);
-      page.drawText('Hello World!');
-      const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-      document.getElementById('pdf').src = pdfDataUri;
 }

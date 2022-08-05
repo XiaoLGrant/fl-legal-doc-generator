@@ -25,7 +25,7 @@
             <li><a href="/addTemplate" id="toggleAdd">Add Template</a></li>
             <li><a href="/editTemplate" id="toggleEdit">Edit Template</a></li>
             <li><a href="/createDoc" id="toggleCreate">Create Summons</a></li>
-            <li><a href="/createTXLet" id="toggleCreate">Create TX Letter</a></li>
+            <li><a href="/createTxAlias" id="toggleCreate">Create TX Letter</a></li>
         </ul>
     </nav>
     <h1>FL Legal Docs Generator: Edit A Template</h1>
@@ -82,6 +82,30 @@
         <!-- <button id="editTemplateButton">Edit Template</button> -->
     </form>
     
+    <div>
+        <h2>Edit a Customer's Contact Information</h2>
+        <p>Select the customer whose contact information you would like to edit from the dropdown, then fill out the information that needs updating.</p>
+        <label for="selectCustomerEdit">Customer: </label>
+        <select>
+            <option value="">Select a customer</option>
+            
+        </select>
+        <span id="selectCustomerToEdit">Select this customer</span>
+            
+        <form action="" method="POST" id="editCustomer">
+    
+            <input type="hidden" value="" id="editCustomerForm" name="editCustomerForm">
+            <p>
+                <label for="selectCustomerEdit">Customer: </label>
+                <select>
+                    <option value="">Select a customer</option>
+    
+                </select>
+            </p>
+        </form>
+    </div>
+
+
     <script src='js/main.js'></script>
     
 </body>

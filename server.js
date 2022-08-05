@@ -85,7 +85,7 @@ app.get('/createDoc', (req,res)=>{
 app.get('/createTXLet', (req, res)=>{
     db.collection('fl-templates').find().sort({countyName: 1}).toArray()
     .then(data => {
-        res.render('createTXLet.ejs', {info: data});
+        res.render('createTXLetDisable.ejs', {info: data});
     })
     .catch(error => console.log(error));
 })
@@ -113,27 +113,34 @@ app.get('/tx/:template', (req, res) => {
 })
 
 /*Get request for testing pdflib*/
-app.get('/pdflib', (req, res) => {
-    db.collection('fl-templates').find().sort({countyName: 1}).toArray()
-    .then(data => {
-        res.render('testpdflib.ejs', {info: data});
-    })
-    .catch(error => console.log(error)); 
+app.get('/createTxAlias', async (req, res) => {
+    try {
+        const templateData = await db.collection('tx-templates').find().sort({templateName: 1}).toArray()
+        const customerData = await db.collection('abc-customers').find().sort({customerName: 1}).toArray()
+
+        res.render('createTxAlias.ejs', {
+            templateInfo: templateData,
+            customerInfo: customerData
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
 });
 
 /*Get request for Customer emails*/
-/* need to add to legal docs database
-app.get('/customer/:customerName', (req, res) => {
-    const customerName = req.params.customerName.toLowerCase();
-
-    db.collection('abc-customers').find({customerName: customerName}).toArray()
+app.get('/customer/:nickname', (req, res) => {
+    const nickname = req.params.nickname
+    db.collection('abc-customers').find({nickname: nickname}).toArray()
     .then(data => {
-        console.log(data)
         res.json(data[0])
+        // res.render('testpdflib.ejs', {info: data})
+        // console.log(data)
     })
-    .catch(error => console.error(error))
+    .catch(error => console.error(error));
+
+
 })
-*/
 
 /*Post request to add a new template to MongoDB*/
 app.post('/addTemplate', (req, res) => {
@@ -150,7 +157,20 @@ app.post('/addTemplate', (req, res) => {
     .catch(err => console.error(err))
 })
 
-/*Upodate an existing template in MongoDB.*/
+/*Post request to add a customer email to MongoDB*/
+app.post('/addCustomerContact', (req, res) => {
+    db.collection('abc-customers').insertOne({
+        customerName: req.body.customerName,
+        nickname: req.body.customerNickname,
+        email: req.body.customerEmail
+    })
+    .then(result => {
+        console.log('Email added');
+        res.redirect('/addTEmplate')
+    })
+})
+
+/*Update an existing template in MongoDB.*/
 app.put('/updateTemplate/:id', (req, res) => {
     db.collection('fl-templates').updateOne({
         _id: new ObjectId(`${req.params.id}`)

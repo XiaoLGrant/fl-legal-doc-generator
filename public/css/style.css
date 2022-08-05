@@ -34,13 +34,18 @@ legend {
 }
 
 .newTemplateButton {
-    padding: 0.5em;
+    padding: 0 0.5em;
     border: 1px solid #24a0ed;
     border-radius: 5px;
     background: #24a0ed;
+    height: 5em;
 }
 
-.newTemplateButton a {
+.buttons {
+    padding: 0.25em;
+}
+
+.newTemplateButton {
     color: white;
     text-decoration: none;
 }
@@ -54,11 +59,11 @@ legend {
     margin-bottom: 1em;
 }
 
-#txCourt, #courtInfoTest {
+#txCourt, #courtInfo {
     min-height: 6em;
 }
 
-#servee1Address, #servee2Address, #serveeAddressTest, #servee2AddressTest {
+#servee1Address, #servee2Address {
     min-height: 4em;
 }
 

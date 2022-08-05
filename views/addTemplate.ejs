@@ -26,7 +26,7 @@
             <li><a href="/addTemplate" id="toggleAdd">Add Template</a></li>
             <li><a href="/editTemplate" id="toggleEdit">Edit Template</a></li>
             <li><a href="/createDoc" id="toggleCreate">Create Summons</a></li>
-            <li><a href="/createTXLet" id="toggleCreate">Create TX Letter</a></li>
+            <li><a href="/createTxAlias" id="toggleCreate">Create TX Letter</a></li>
         </ul>
     </nav>
     <h1>FL Legal Docs Generator: Add A Template</h1>
@@ -72,6 +72,22 @@
         <p>
             <label for="addTemplateArea"><span>Document Text: </span></label>
             <textarea id="addTemplateArea" placeholder="Paste document text here." name="docText"></textarea>
+        </p>
+        <input type="submit">
+    </form>
+
+    <form action="/addCustomerContact" method="POST" id="addCustomerContact">
+        <h2>Add A Customer's Email:</h2>
+        <p>Use the form below to add a customer's email.</p>
+        <p>
+            <label><span>Name: </span></label>
+            <input type="text" name="customerName" id="addCustomerName">
+
+            <label><span>Nickname: </span></label>
+            <input type="text" name="customerNickname" id="customerNickname">
+
+            <label><span>Email: </span></label>
+            <input type="email" name="customerEmail" id="customerEmail">
         </p>
         <input type="submit">
     </form>
